@@ -33,6 +33,11 @@ public class AppTest     {
         WebElement cityField = driver.findElement(By.name("city"));
         WebElement stateField = driver.findElement(By.name("state"));
         WebElement postalCodeField = driver.findElement(By.name("postalCode"));
+        WebElement countryField = driver.findElement(By.name("country"));
+        WebElement usernameField = driver.findElement(By.id("email"));
+        WebElement passwordField = driver.findElement(By.name("password"));
+        WebElement confirmPassField = driver.findElement(By.name("confirmPassword"));
+        WebElement button = driver.findElement(By.name("submit"));
         
         firstnameField.sendKeys("Septian");
         
@@ -44,49 +49,36 @@ public class AppTest     {
         stateField.sendKeys("East Konoha");
         postalCodeField.sendKeys("123442");
         
-        
-        
-        
-        
-    }
-    // Kalau ingin melakukan pengujian secara random country di setiap pengujiannya
-    @Test
-    public void selectRandomCountryTest(){
-        WebElement countryField = driver.findElement(By.name("country"));
         Select select = new Select(countryField);
-       
+        
+        // Kalau ingin melakukan pengujian secara random country di setiap pengujiannya
         List<WebElement> options = select.getOptions();
         
         Random rand = new Random();
         int randomIndex = rand.nextInt(options.size());
-
+    
         select.selectByIndex(randomIndex);
-
+    
         WebElement selectedOption = select.getFirstSelectedOption();
-
+    
         Assert.assertEquals(selectedOption.getText(), options.get(randomIndex).getText()); 
-        
-    }
 
-    @Test
-    public void userInformationTest(){
-        WebElement usernameField = driver.findElement(By.id("email"));
-        WebElement passwordField = driver.findElement(By.name("password"));
-        WebElement confirmPassField = driver.findElement(By.name("confirmPassword"));
-        WebElement button = driver.findElement(By.name("submit"));
-        
+        // melakukan pengetesan pada user informatin
         usernameField.sendKeys("Septian123");
         passwordField.sendKeys("Septian123_");
         confirmPassField.sendKeys("Septian123_");
-
+    
         button.click();
-
+    
         String actual = driver.getCurrentUrl();
         String expected = "https://demo.guru99.com/test/newtours/register_sucess.php";
-
-        Assert.assertEquals(actual, expected);
     
+        Assert.assertEquals(actual, expected);
+        
+        
     }
+    
+
 
     @AfterClass   
     public void teardown() throws InterruptedException {
